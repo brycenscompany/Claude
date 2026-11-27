@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e63946"/><stop offset="1" stop-color="#b5121b"/></linearGradient>
+    <linearGradient id="blade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4f6f8"/><stop offset=".5" stop-color="#ffffff"/><stop offset=".5" stop-color="#b9c2cb"/><stop offset="1" stop-color="#8d98a3"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe066"/><stop offset="1" stop-color="#e0a800"/></linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <g transform="rotate(-35 512 512)" stroke="#111" stroke-width="22" stroke-linejoin="round">
+    <path d="M512 90 L566 190 L566 640 L458 640 L458 190 Z" fill="url(#blade)"/>
+    <path d="M512 150 V620" stroke="#8d98a3" stroke-width="10"/>
+    <rect x="352" y="630" width="320" height="60" rx="26" fill="url(#gold)"/>
+    <rect x="474" y="690" width="76" height="170" rx="16" fill="#4a2c1a"/>
+    <path d="M474 730 L550 714 M474 772 L550 756 M474 814 L550 798" stroke="#2a180c" stroke-width="12"/>
+    <circle cx="512" cy="900" r="52" fill="url(#gold)"/>
+  </g>
+</svg>
