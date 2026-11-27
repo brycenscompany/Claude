@@ -69,7 +69,7 @@ input{font:600 16px Nunito,sans-serif;min-height:44px;padding:8px 12px;border:3p
 <section class="panel hero">
   <div>
     <h1>Morning Briefing</h1>
-    <p>Five golden lines, delivered the SEAL way. Eight minutes, then go win the day.</p>
+    <p>I am pissed off that I don't have everything that I want. I will do everything required to achieve what I want.</p>
   </div>
   <svg class="frog" viewBox="0 0 320 260" role="img" aria-label="Cartoon of a tough, weathered, muscular Navy SEAL flexing with clenched fists">
     <defs>
@@ -137,7 +137,6 @@ input{font:600 16px Nunito,sans-serif;min-height:44px;padding:8px 12px;border:3p
   <div class="breathe">
     <div class="box" id="box"><span class="dot"></span><div class="cue" id="cue">Ready?<small>tap start</small></div></div>
     <div>
-      <p>In through the nose for 4. Hold for 4. Out for 4. Hold for 4. Follow the red dot around the box. Do 4 rounds (about a minute) to calm the body before you speak.</p>
       <div class="row"><button id="go">Start breathing</button></div>
     </div>
   </div>
@@ -157,26 +156,19 @@ input{font:600 16px Nunito,sans-serif;min-height:44px;padding:8px 12px;border:3p
   <h2>The five golden lines</h2>
   <div class="name"><label for="nm">Your name:</label><input id="nm" placeholder="Type it here" autocomplete="given-name"></div>
   <ol class="lines" id="lines"></ol>
-  <div class="how">
-    <div><b>1st time</b>Say it as "I." Steady and clear.</div>
-    <div><b>2nd time</b>Say it to yourself by name, like a coach.</div>
-    <div><b>3rd time</b>Full intent. Squeeze your fist on the last word.</div>
-  </div>
   <div class="row"><button class="ghost" id="reset">Reset ticks</button><span id="tally" aria-live="polite"></span></div>
-  <p class="note">Tap a card each time you say it. Stand tall, speak low and slow, and pause after each one so it lands.</p>
 </section>
 
-<p class="note">The Big Four (goal setting, mental rehearsal, self-talk, arousal control) is the mental-toughness framework reported from Navy SEAL training. Box breathing is the breath-control drill widely taught by former SEALs. The lines are built to research rules: believable, built on proof, and naming the obstacle.</p>
 </div>
 
 <script>
 {
 const lines=[
-  ["I've survived every hard day so far. This one's next.","{N}, you've survived every hard day so far. This one's next."],
+  ["I am a winner. God is on my side.","{N}, you are a winner. God is on your side."],
   ["I don't need to feel ready. I just need to move.","{N}, you don't need to feel ready. You just need to move."],
   ["Pain is information, not orders. I feel it and keep going.","{N}, pain is information, not orders. Feel it and keep going."],
   ["When I want to quit, I do one more. One rep. One minute. One step.","{N}, when you want to quit, do one more. One rep. One minute. One step."],
-  ["I keep the promises I make to myself, starting with today's goal.","{N}, keep the promises you make to yourself, starting with today's goal."]
+  ["My word is iron willed. I will complete my checklist today.","{N}, your word is iron willed. You will complete your checklist today."]
 ];
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 const nm=document.getElementById('nm');
