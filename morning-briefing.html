@@ -52,6 +52,11 @@ button.ghost{background:var(--card);color:var(--ink)}
 .step b{font-family:Bangers,Impact,sans-serif;font-weight:400;font-size:26px;display:flex;gap:10px;align-items:center}
 .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:20px;flex:none}
 .step p{margin-top:6px;color:var(--muted)}
+.chk{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.check{flex:none;width:44px;height:44px;padding:0;border-radius:10px;background:var(--card);color:#fff;box-shadow:3px 3px 0 var(--ink);font-size:28px;line-height:1}
+.check[aria-pressed=true]{background:#2a9d4b}
+.check[aria-pressed=true]::before{content:"\2713"}
+.chk.done b{text-decoration:line-through;text-decoration-thickness:3px}
 .goals{grid-row:span 3}
 .goal{width:100%;margin-top:10px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -106,9 +111,9 @@ input{font:600 16px Nunito,sans-serif;min-height:44px;padding:8px 12px;border:3p
       <label class="sr" for="g1">Goal 2</label><input id="g1" class="goal" placeholder="Goal 2">
       <label class="sr" for="g2">Goal 3</label><input id="g2" class="goal" placeholder="Goal 3">
     </div>
-    <div class="step"><b><span class="num">2</span>See it</b></div>
-    <div class="step"><b><span class="num">3</span>Say it</b></div>
-    <div class="step"><b><span class="num">4</span>Control</b></div>
+    <div class="step chk"><b><span class="num">2</span>See it</b><button class="check" data-k="2" aria-pressed="false" aria-label="Mark See it done"></button></div>
+    <div class="step chk"><b><span class="num">3</span>Say it</b><button class="check" data-k="3" aria-pressed="false" aria-label="Mark Say it done"></button></div>
+    <div class="step chk"><b><span class="num">4</span>Control</b><button class="check" data-k="4" aria-pressed="false" aria-label="Mark Control done"></button></div>
   </div>
 </section>
 
@@ -165,6 +170,15 @@ const today=new Date().toDateString();
 let goals=['','',''];
 try{const g=JSON.parse(store.get('mb-goals')||'null');if(g&&g.day===today&&Array.isArray(g.list))goals=g.list.slice(0,3).map(String)}catch(e){}
 [0,1,2].forEach(i=>{const el=document.getElementById('g'+i);el.value=goals[i]||'';el.addEventListener('input',()=>{goals[i]=el.value;store.set('mb-goals',JSON.stringify({day:today,list:goals}))})});
+
+let steps={};
+try{const g=JSON.parse(store.get('mb-steps')||'null');if(g&&g.day===today&&g.done)steps=g.done}catch(e){}
+document.querySelectorAll('.check').forEach(btn=>{
+  const k=btn.dataset.k;
+  const show=()=>{btn.setAttribute('aria-pressed',steps[k]?'true':'false');btn.closest('.chk').classList.toggle('done',!!steps[k])};
+  show();
+  btn.addEventListener('click',()=>{steps[k]=!steps[k];store.set('mb-steps',JSON.stringify({day:today,done:steps}));show()});
+});
 
 const box=document.getElementById('box');
 const cue=document.getElementById('cue');
