@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morning Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@500;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday, playful: a comic-book mission briefing
+   IDEA a frogman's waterproof mission card, drawn as a comic strip
+   PICTURE a cartoon frog in a dive mask and boxing gloves; a live box-breathing square
+   COLOUR white ground, thick black ink, gold for the five lines, red accent, frog green
+   TYPE Bangers display + Nunito text
+   LAYOUT title + frog, then breathe, Big Four, five golden lines, all one column on phones */
+:root{color-scheme:light dark;--bg:light-dark(#fff,#15191d);--ink:light-dark(#111,#f2f2f2);--card:light-dark(#fff,#1f252b);--gold:light-dark(#ffcf33,#e8b820);--gold-ink:#111;--red:#e63946;--sea:light-dark(#dff4ff,#1b3140);--muted:light-dark(#555,#b5bcc4)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:500 16px/1.55 Nunito,system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:860px;margin:0 auto;padding:clamp(20px,4vw,48px) max(16px,4vw)}
+h1,h2{font-family:Bangers,Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:1.05;margin:0}
+h1{font-size:clamp(44px,9vw,72px)}
+h2{font-size:clamp(30px,5vw,40px);margin-bottom:14px}
+p{margin:0}
+.panel{background:var(--card);border:4px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);padding:20px;margin-top:28px}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:center;background:var(--sea)}
+.hero p{font-size:18px;margin-top:10px;max-width:30em}
+.frog{width:100%;height:auto;display:block}
+.breathe{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center}
+.box{position:relative;width:170px;height:170px;border:5px solid var(--ink);border-radius:10px;background:var(--sea)}
+.dot{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--red);border:4px solid var(--ink);left:-15px;top:-15px}
+.box.on .dot{animation:trace 16s linear infinite}
+@keyframes trace{0%{left:-15px;top:150px}25%{left:-15px;top:-15px}50%{left:150px;top:-15px}75%{left:150px;top:150px}100%{left:-15px;top:150px}}
+.cue{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-family:Bangers,Impact,sans-serif;font-size:30px;line-height:1}
+.cue small{display:block;font-family:Nunito,sans-serif;font-size:14px;font-weight:800;margin-top:4px}
+button{font:800 16px Nunito,sans-serif;min-height:44px;padding:8px 18px;border:3px solid var(--ink);border-radius:12px;background:var(--red);color:#fff;box-shadow:3px 3px 0 var(--ink);cursor:pointer}
+button:active{transform:translate(3px,3px);box-shadow:none}
+button:focus-visible,input:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+button.ghost{background:var(--card);color:var(--ink)}
+.four{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.step{border:3px solid var(--ink);border-radius:14px;padding:14px;background:var(--card)}
+.step b{font-family:Bangers,Impact,sans-serif;font-weight:400;font-size:26px;display:flex;gap:10px;align-items:center}
+.num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:20px;flex:none}
+.step p{margin-top:6px;color:var(--muted)}
+.name{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.name label{font-weight:800}
+input{font:600 16px Nunito,sans-serif;min-height:44px;padding:8px 12px;border:3px solid var(--ink);border-radius:12px;background:var(--card);color:var(--ink);width:12em}
+.lines{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.line{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--gold);color:var(--gold-ink);border:4px solid #111;border-radius:16px;box-shadow:5px 5px 0 #111;padding:14px 16px;cursor:pointer;user-select:none}
+.line q{font-family:Bangers,Impact,sans-serif;font-size:clamp(24px,4.4vw,32px);line-height:1.1;quotes:none}
+.ticks{display:flex;gap:6px}
+.ticks i{width:18px;height:18px;border-radius:50%;border:3px solid #111;background:#fff}
+.ticks i.on{background:var(--red)}
+.done .line{opacity:.95}
+.how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.how div{border:3px dashed var(--ink);border-radius:12px;padding:10px 12px}
+.how b{display:block;font-family:Bangers,Impact,sans-serif;font-weight:400;font-size:22px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.note{font-size:13px;color:var(--muted);margin-top:22px}
+@media(max-width:600px){.hero,.breathe{grid-template-columns:minmax(0,1fr)}.box{margin:0 auto}.four,.how{grid-template-columns:minmax(0,1fr)}.frog{max-width:300px;margin:0 auto}}
+@media(prefers-reduced-motion:reduce){.box.on .dot{animation:none;left:67px;top:67px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="panel hero">
+  <div>
+    <h1>Morning Briefing</h1>
+    <p>Five golden lines, delivered the frogman way. Eight minutes, then go win the day.</p>
+  </div>
+  <svg class="frog" viewBox="0 0 320 260" role="img" aria-label="Cartoon frog in a dive mask wearing red boxing gloves">
+    <ellipse cx="160" cy="246" rx="110" ry="10" fill="#000" opacity=".15"/>
+    <path d="M70 230 Q60 140 160 130 Q260 140 250 230 Z" fill="#4caf50" stroke="#111" stroke-width="5"/>
+    <path d="M110 230 Q110 180 160 176 Q210 180 210 230 Z" fill="#c8f0a0" stroke="#111" stroke-width="4"/>
+    <circle cx="118" cy="104" r="34" fill="#4caf50" stroke="#111" stroke-width="5"/>
+    <circle cx="202" cy="104" r="34" fill="#4caf50" stroke="#111" stroke-width="5"/>
+    <path d="M86 100 H234" stroke="#e63946" stroke-width="10" stroke-linecap="round"/>
+    <rect x="94" y="80" width="132" height="48" rx="22" fill="#8fd6ff" stroke="#111" stroke-width="5"/>
+    <path d="M104 92 l16 -6" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="128" cy="104" r="9" fill="#111"/><circle cx="192" cy="104" r="9" fill="#111"/>
+    <circle cx="131" cy="101" r="3" fill="#fff"/><circle cx="195" cy="101" r="3" fill="#fff"/>
+    <path d="M128 150 Q160 172 192 150" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+    <path d="M78 190 Q40 170 44 120" fill="none" stroke="#111" stroke-width="16" stroke-linecap="round"/>
+    <path d="M78 190 Q40 170 44 120" fill="none" stroke="#4caf50" stroke-width="8" stroke-linecap="round"/>
+    <path d="M242 190 Q280 170 276 120" fill="none" stroke="#111" stroke-width="16" stroke-linecap="round"/>
+    <path d="M242 190 Q280 170 276 120" fill="none" stroke="#4caf50" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="44" cy="98" rx="26" ry="30" fill="#e63946" stroke="#111" stroke-width="5"/>
+    <ellipse cx="276" cy="98" rx="26" ry="30" fill="#e63946" stroke="#111" stroke-width="5"/>
+    <path d="M30 88 q8 -10 18 -8 M262 88 q8 -10 18 -8" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <g transform="translate(206 8)">
+      <path d="M0 0 H100 a10 10 0 0 1 10 10 V40 a10 10 0 0 1 -10 10 H34 L18 66 L22 50 H10 a10 10 0 0 1 -10 -10 Z" fill="#fff" stroke="#111" stroke-width="4"/>
+      <text x="55" y="34" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="24" fill="#111">HOOYAH!</text>
+    </g>
+  </svg>
+</section>
+
+<section class="panel">
+  <h2>Box breathe</h2>
+  <div class="breathe">
+    <div class="box" id="box"><span class="dot"></span><div class="cue" id="cue">Ready?<small>tap start</small></div></div>
+    <div>
+      <p>In through the nose for 4. Hold for 4. Out for 4. Hold for 4. Follow the red dot around the box. Do 4 rounds (about a minute) to calm the body before you speak.</p>
+      <div class="row"><button id="go">Start breathing</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>The Big Four · your morning route</h2>
+  <div class="four">
+    <div class="step"><b><span class="num">1</span>Goal</b><p>Pick ONE small win for today. Make it tiny and clear: "Workout done by 7."</p></div>
+    <div class="step"><b><span class="num">2</span>See it</b><p>60 seconds, eyes closed. Watch yourself do it, <em>including</em> the moment you want to quit, and push through it.</p></div>
+    <div class="step"><b><span class="num">3</span>Say it</b><p>Speak the five golden lines below, out loud, 3 times each.</p></div>
+    <div class="step"><b><span class="num">4</span>Control</b><p>Finish with one more round of box breathing. Calm body, sharp mind. Go.</p></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>The five golden lines</h2>
+  <div class="name"><label for="nm">Your name:</label><input id="nm" placeholder="Type it here" autocomplete="given-name"></div>
+  <ol class="lines" id="lines"></ol>
+  <div class="how">
+    <div><b>1st time</b>Say it as "I." Steady and clear.</div>
+    <div><b>2nd time</b>Say it to yourself by name, like a coach.</div>
+    <div><b>3rd time</b>Full intent. Squeeze your fist on the last word.</div>
+  </div>
+  <div class="row"><button class="ghost" id="reset">Reset ticks</button><span id="tally" aria-live="polite"></span></div>
+  <p class="note">Tap a card each time you say it. Stand tall, speak low and slow, and pause after each one so it lands.</p>
+</section>
+
+<p class="note">The Big Four (goal setting, mental rehearsal, self-talk, arousal control) is the mental-toughness framework reported from Navy SEAL training. Box breathing is the breath-control drill widely taught by former SEALs. The lines are built to research rules: believable, built on proof, and naming the obstacle.</p>
+</div>
+
+<script>
+{
+const lines=[
+  ["I've survived every hard day so far. This one's next.","{N}, you've survived every hard day so far. This one's next."],
+  ["I don't need to feel ready. I just need to move.","{N}, you don't need to feel ready. You just need to move."],
+  ["Pain is information, not orders. I feel it and keep going.","{N}, pain is information, not orders. Feel it and keep going."],
+  ["When I want to quit, I do one more. One rep. One minute. One step.","{N}, when you want to quit, do one more. One rep. One minute. One step."],
+  ["I keep the promises I make to myself, starting with today's goal.","{N}, keep the promises you make to yourself, starting with today's goal."]
+];
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const nm=document.getElementById('nm');
+const list=document.getElementById('lines');
+const tally=document.getElementById('tally');
+let counts=[0,0,0,0,0];
+try{const c=JSON.parse(store.get('mb-counts')||'null');if(Array.isArray(c)&&c.length===5)counts=c.map(n=>Math.min(3,Number(n)||0))}catch(e){}
+nm.value=store.get('mb-name')||'';
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function render(){
+  const n=nm.value.trim();
+  list.innerHTML=lines.map((l,i)=>{
+    const t=counts[i]===1&&n?l[1].replace('{N}',esc(n)):l[0];
+    return `<li class="line" data-i="${i}" tabindex="0" role="button" aria-label="Said ${counts[i]} of 3 times"><q>${t}</q><span class="ticks">${[0,1,2].map(k=>`<i class="${k<counts[i]?'on':''}"></i>`).join('')}</span></li>`;
+  }).join('');
+  const total=counts.reduce((a,b)=>a+b,0);
+  tally.textContent=total===15?'All 15 reps done. Go win the day.':`${total} of 15 reps`;
+}
+function hit(el){const i=Number(el.dataset.i);counts[i]=counts[i]>=3?0:counts[i]+1;store.set('mb-counts',JSON.stringify(counts));render()}
+list.addEventListener('click',e=>{const el=e.target.closest('.line');if(el)hit(el)});
+list.addEventListener('keydown',e=>{const el=e.target.closest('.line');if(el&&(e.key==='Enter'||e.key===' ')){e.preventDefault();hit(el);list.querySelector(`[data-i="${el.dataset.i}"]`).focus()}});
+nm.addEventListener('input',()=>{store.set('mb-name',nm.value);render()});
+document.getElementById('reset').addEventListener('click',()=>{counts=[0,0,0,0,0];store.set('mb-counts',JSON.stringify(counts));render()});
+render();
+
+const box=document.getElementById('box');
+const cue=document.getElementById('cue');
+const go=document.getElementById('go');
+const phases=['Breathe in','Hold','Breathe out','Hold'];
+let timer=null;
+function stop(){clearInterval(timer);timer=null;box.classList.remove('on');cue.innerHTML='Nice.<small>tap start again</small>';go.textContent='Start breathing'}
+go.addEventListener('click',()=>{
+  if(timer){stop();return}
+  let sec=0;
+  box.classList.remove('on');void box.offsetWidth;box.classList.add('on');
+  go.textContent='Stop';
+  const tick=()=>{
+    if(sec>=64){stop();cue.innerHTML='Done.<small>4 rounds</small>';return}
+    const p=Math.floor(sec/4)%4,left=4-sec%4,round=Math.floor(sec/16)+1;
+    cue.innerHTML=`${phases[p]}<small>${left} · round ${round} of 4</small>`;
+    sec++;
+  };
+  tick();timer=setInterval(tick,1000);
+});
+}
+</script>
+</body>
+</html>
