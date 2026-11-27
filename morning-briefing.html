@@ -47,6 +47,9 @@ button.ghost{background:var(--card);color:var(--ink)}
 .step b{font-family:Bangers,Impact,sans-serif;font-weight:400;font-size:26px;display:flex;gap:10px;align-items:center}
 .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:20px;flex:none}
 .step p{margin-top:6px;color:var(--muted)}
+.goals{grid-row:span 3}
+.goal{width:100%;margin-top:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .name{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
 .name label{font-weight:800}
 input{font:600 16px Nunito,sans-serif;min-height:44px;padding:8px 12px;border:3px solid var(--ink);border-radius:12px;background:var(--card);color:var(--ink);width:12em}
@@ -148,10 +151,14 @@ input{font:600 16px Nunito,sans-serif;min-height:44px;padding:8px 12px;border:3p
 <section class="panel">
   <h2>The Big Four · your morning route</h2>
   <div class="four">
-    <div class="step"><b><span class="num">1</span>Goal</b><p>Pick ONE small win for today. Make it tiny and clear: "Workout done by 7."</p></div>
-    <div class="step"><b><span class="num">2</span>See it</b><p>60 seconds, eyes closed. Watch yourself do it, <em>including</em> the moment you want to quit, and push through it.</p></div>
-    <div class="step"><b><span class="num">3</span>Say it</b><p>Speak the six golden lines below, out loud, 3 times each.</p></div>
-    <div class="step"><b><span class="num">4</span>Control</b><p>Finish with one more round of box breathing. Calm body, sharp mind. Go.</p></div>
+    <div class="step goals"><b><span class="num">1</span>Goal</b>
+      <label class="sr" for="g0">Goal 1</label><input id="g0" class="goal" placeholder="Goal 1">
+      <label class="sr" for="g1">Goal 2</label><input id="g1" class="goal" placeholder="Goal 2">
+      <label class="sr" for="g2">Goal 3</label><input id="g2" class="goal" placeholder="Goal 3">
+    </div>
+    <div class="step"><b><span class="num">2</span>See it</b></div>
+    <div class="step"><b><span class="num">3</span>Say it</b></div>
+    <div class="step"><b><span class="num">4</span>Control</b></div>
   </div>
 </section>
 
@@ -197,6 +204,11 @@ list.addEventListener('keydown',e=>{const el=e.target.closest('.line');if(el&&(e
 nm.addEventListener('input',()=>{store.set('mb-name',nm.value);render()});
 document.getElementById('reset').addEventListener('click',()=>{counts=[0,0,0,0,0,0];store.set('mb-counts',JSON.stringify(counts));render()});
 render();
+
+const today=new Date().toDateString();
+let goals=['','',''];
+try{const g=JSON.parse(store.get('mb-goals')||'null');if(g&&g.day===today&&Array.isArray(g.list))goals=g.list.slice(0,3).map(String)}catch(e){}
+[0,1,2].forEach(i=>{const el=document.getElementById('g'+i);el.value=goals[i]||'';el.addEventListener('input',()=>{goals[i]=el.value;store.set('mb-goals',JSON.stringify({day:today,list:goals}))})});
 
 const box=document.getElementById('box');
 const cue=document.getElementById('cue');
